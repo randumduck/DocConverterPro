@@ -5,6 +5,7 @@ from docx import Document
 from PIL import Image
 import speech_recognition as sr
 import os
+from fpdf import FPDF
 from concurrent.futures import ThreadPoolExecutor
 
 # Configure Tesseract path for Windows
@@ -36,6 +37,27 @@ def audio_to_text(audio_path, text_path):
     with open(text_path, 'w') as file:
         file.write(text)
 
+# Function to convert any image file to PDF
+def image_to_pdf(image_path, pdf_path):
+    pdf = FPDF()
+    pdf.add_page()
+    
+    # Open the image and convert it to RGB if necessary
+    image = Image.open(image_path).convert('RGB')
+    
+    # Save the image as a temporary JPEG file
+    temp_image_path = os.path.splitext(image_path)[0] + '_temp.jpg'
+    image.save(temp_image_path, 'JPEG')
+    
+    # Add the temporary JPEG image to the PDF
+    pdf.image(temp_image_path, x=10, y=10, w=190)
+    
+    # Save the PDF
+    pdf.output(pdf_path)
+    
+    # Remove the temporary JPEG file
+    os.remove(temp_image_path)
+
 # Function to convert PDF to Word with OCR capabilities using multithreading
 def pdf_to_word_with_ocr_multithreaded(pdf_path, word_path):
     images = convert_from_path(pdf_path)
@@ -61,13 +83,14 @@ def main():
         print("Choose an option:")
         print("1. Convert PDF to Word")
         print("2. Convert JPG to Word")
-        print("3. Convert Audio to Text")
+        print("3. Convert Image to PDF")
+        print("4. Convert Audio to Text")
         print("0. Exit")
         choice = input("Enter your choice: ")
 
         if choice == '0':
             break
-        elif choice in ['1', '2', '3']:
+        elif choice in ['1', '2', '3', '4']:
             file_path = input("Enter the file path: ")
             file_dir, file_name = os.path.split(file_path)
             file_base, file_ext = os.path.splitext(file_name)
@@ -81,6 +104,10 @@ def main():
                 jpg_to_word_with_ocr(file_path, output_path)
                 print(f"JPG has been successfully converted to Word and saved as {output_path}.")
             elif choice == '3':
+                output_path = os.path.join(file_dir, f"{file_base}.pdf")
+                image_to_pdf(file_path, output_path)
+                print(f"Image has been successfully converted to PDF and saved as {output_path}.")
+            elif choice == '4':
                 output_path = os.path.join(file_dir, f"{file_base}.txt")
                 audio_to_text(file_path, output_path)
                 print(f"Audio has been successfully converted to text and saved as {output_path}.")
