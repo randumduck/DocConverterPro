@@ -21,7 +21,7 @@ DocConverterPro is a Python-based tool that allows you to convert PDF to Word, J
 First, you need to clone the repository from GitHub. Open your terminal or command prompt and run the following commands:
 
 ```bash
-git clone https://github.com/yourusername/DocConverterPro.git
+git clone https://github.com/randumduck/DocConverterPro.git
 cd DocConverterPro
 ```
 
