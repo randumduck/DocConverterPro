@@ -1,11 +1,12 @@
 ```markdown
 # DocConverterPro
 
-DocConverterPro is a Python-based tool that allows you to convert PDF to Word, JPG to Word using OCR, and audio to text. The tool preserves the original formatting of the PDF, including logos, signs, and other graphical elements.
+DocConverterPro is a Python-based tool that allows you to convert PDF to Word, JPG to Word using OCR, image files to PDF, and audio to text. The tool preserves the original formatting of the PDF, including logos, signs, and other graphical elements.
 
 ## Features
 - Convert PDF to Word while preserving original formatting.
 - Convert JPG to Word using OCR capabilities.
+- Convert image files (e.g., PNG, BMP) to PDF.
 - Convert audio files to text.
 
 ## Requirements
@@ -88,7 +89,8 @@ python doc_converter_pro.py
 
 1. Convert PDF to Word
 2. Convert JPG to Word
-3. Convert Audio to Text
+3. Convert Image to PDF
+4. Convert Audio to Text
 0. Exit
 
 ### Example
@@ -97,7 +99,8 @@ python doc_converter_pro.py
 Choose an option:
 1. Convert PDF to Word
 2. Convert JPG to Word
-3. Convert Audio to Text
+3. Convert Image to PDF
+4. Convert Audio to Text
 0. Exit
 Enter your choice: 1
 Enter the file path: /path/to/your/file.pdf
@@ -123,4 +126,4 @@ pdf2image
 python-docx
 pillow
 SpeechRecognition
-```
+fpdf
